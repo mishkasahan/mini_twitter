@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    {% block content%}
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="my-4">List of coments</h1>
+                <ul class="list-group">
+                    {% for coment in all_coments %}
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h4 class="mt-0">Пост - {{coment.post.content}} -- {{coment.post.title}}</h4>
+                                    <h5 class="mt-0">{{coment.user.username}}</h5>
+                                    <h3 class="mt-0">{{coment.content}}</h3>
+                                    <hr>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    {% endblock %}
+</body>
+</html>
