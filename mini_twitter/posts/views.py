@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Post,Comment
 
 
-def show_posts(request):
-    all_posts = Post.objects.all()
-    context = {"all_posts": all_posts, "title": "Наші пости"}
+def show_posts(request, username=None):
+    if username:
+        posts = Post.objects.filter(user__username=username)
+    else:
+        posts = Post.objects.all()
+    context = {"posts": posts, "title": "Наші пости"}
     return render(request, 'posts/posts_list.html', context)
 
 
