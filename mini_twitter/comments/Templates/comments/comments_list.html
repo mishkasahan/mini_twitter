@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+    {% block content%}
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h1 class="my-4">List of comments</h1>
+                <ul class="list-group">
+                    {% for comment in all_comments %}
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-body">
+                                    <h4 class="mt-0">Пост - {{comment.post.content}} -- {{comment.post.title}}</h4>
+                                    <h5 class="mt-0">{{comment.user.username}}</h5>
+                                    <h3 class="mt-0">{{comment.content}}</h3>
+
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    {% endblock %}

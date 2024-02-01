@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
-from .models import Post, Comment
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Post
 from .forms import PostForm
+from comments.models import Comment
 
 
 def show_posts(request, username=None):
-    if username:
+    if username is not None:
         posts = Post.objects.filter(user__username=username)
     else:
         posts = Post.objects.all()
@@ -24,7 +25,11 @@ def add_post(request):
     return render(request, 'posts/add_post.html', {"form": form})
 
 
-def show_coments(request):
-    all_coments = Comment.objects.all()
-    context = {"all_coments": all_coments, "title": "Наші коменти"}
-    return render(request, 'coments/coments_list.html', context)
+def show_post(request, id=None):
+    posts = [get_object_or_404(Post, id=id)]
+    comments = Comment.objects.filter(post_id=id)
+    context = {"posts": posts, "title": f"Пост № {id}", "comments": comments}
+    return render(request, 'posts/show_post.html', context)
+
+
+

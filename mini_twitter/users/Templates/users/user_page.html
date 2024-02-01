@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content%}
+<div class="row">
+    <div class="col-md-3">
+        <h1>Навігаційна панель</h1>
+        <h2>Тут будуть посилання</h2>
+    </div>
+    <div class="col-md-9 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            {% if user.profile_images %}
+                            <img src="{{ user.profile_images.url }}"
+                                class=" rounded img-fluid mb-2 mt-3"
+                                style="height: 350px; width: 250px; object-fit: cover; margin-left: 10px;">
+                            {% else %}
+                            <img src="{%static 'img/default_user_photo.jpg' %}"
+                                class=" rounded-circle img-fluid mt-3"
+                                style="height: 45px; width: 45px; object-fit: cover; margin-left: 10px;">
+                            {% endif %}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" > {{user.username}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            {% if user.first_name and user.last_name%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Ім'я: {{user.first_name}} {{user.last_name}}</h5>
+                            {% endif%}
+                            {% if user.day_of_birth%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Народився: {{user.day_of_birth}}</h5>
+                            {% endif%}
+                            {% if user.country%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Країна: {{user.country}}</h5>
+                            {% endif%}
+                            {% if user.city_of_residence%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Місто/село: {{user.city_of_residence}}</h5>
+                            {% endif%}
+                            {% if user.phone_number%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Номер телефону: {{user.phone_number}}</h5>
+                            {% endif%}
+                            {% if user.email%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Емейл: {{user.email}}</h5>
+                            {% endif%}
+                            {% if user.marital_status%}
+                            <h5 class="card-title mt-3" style="margin-left: 8px;" >Сімейний стан: {{user.marital_status}}</h5>
+                            {% endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <h1 class="my-4">Список всіх постів</h1>
+            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-3">
+                    {% for post in posts %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                            {% if post.user.profile_images %}
+                                <img src="{{ post.user.profile_images.url }}"
+                                     class=" rounded-circle img-fluid mt-3"
+                                     style="height: 45px; width: 45px; object-fit: cover; margin-left: 10px;">
+                            {% else %}
+                                    <img src="{%static 'img/default_user_photo.jpg' %}"
+                                     class=" rounded-circle img-fluid mt-3"
+                                     style="height: 45px; width: 45px; object-fit: cover; margin-left: 10px;">
+                            {% endif %}
+                                <h5 class="card-title mt-3" style="margin-left: 8px;" > {{post.user.username}}</h5>
+                                </div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{post.title}} </h4>
+                                <p class="card-text">{{post.content|truncatechars:1000 }}</p>
+                            </div>
+                            {% if post.post_photo %}
+                                <img src="{{ post.post_photo.url }}"
+                                     class=" rounded img-fluid mb-2 mt-3"
+                                     style="height: 450px; width: 450px; object-fit: cover; margin-left: 10px;">
+                            {% endif %}
+                            <div class="container ">
+                                <div class="row mb-2">
+                                    <div class="col-md-2">
+                                        <button class="btn btn-sm btn-secondary rounded-pill  " type="button">Коментувати</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-sm btn-secondary rounded-pill">Всі коментарі</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-sm btn-secondary rounded-pill">Поставити лайк</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

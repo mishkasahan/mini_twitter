@@ -30,6 +30,24 @@
                                 <h4 class="card-title">{{post.title}} </h4>
                                 <p class="card-text">{{post.content|truncatechars:1000 }}</p>
                             </div>
+                            {% if post.post_photo %}
+                                <img src="{{ post.post_photo.url }}"
+                                     class=" rounded img-fluid mb-2 mt-3"
+                                     style="height: 450px; width: 450px; object-fit: cover; margin-left: 10px;">
+                            {% endif %}
+                            <div class="container ">
+                                <div class="row mb-2">
+                                    <div class="col-md-2">
+                                        <button class="btn btn-sm btn-secondary rounded-pill  " type="button">Коментувати</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-sm btn-secondary rounded-pill">Всі коментарі</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" class="btn btn-sm btn-secondary rounded-pill">Поставити лайк</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
